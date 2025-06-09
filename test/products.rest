@@ -1,17 +1,17 @@
-@host=http://localhost:3000/products
+@host=http://localhost:8080/products
 
 GET {{ host }} HTTP/1.1
 ###
 
-GET {{ host }}/1 HTTP/1.1
+GET {{ host }}/2 HTTP/1.1
 ###
 
 POST {{ host }} HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Producto 2",
-    "price": 5.20
+    "name": "Producto 5",
+    "price": 50.20
 }
 ###
 

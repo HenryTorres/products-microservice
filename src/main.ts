@@ -1,15 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-import 'dotenv/config';
+import { ValidationPipe } from '@nestjs/common';
+import { environmentVars } from './config/envs';
 
 async function bootstrap() {
   // Creamos el servidor
   const app = await NestFactory.create(AppModule);
 
-  // Lanzamos el servidor
-  await app.listen(process.env.PORT ?? 3000, process.env.HOST ?? 'localhost');
+  // Habilita las validaciones
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true
+    })
+  );
 
-  console.log('Servidor ejecutandose en el puerto:' + process.env.PORT);
+  // Lanzamos el servidor
+  await app.listen(environmentVars.PORT, environmentVars.HOST);
+
+  console.log('Servidor ejecutandose en el puerto:' + environmentVars.PORT);
 }
 bootstrap();
