@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { environmentVars } from './config/envs';
 
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
@@ -31,6 +31,6 @@ async function bootstrap() {
   // Lanzamos el microservicio
   await app.listen();
 
-  console.log('Microservicio ejecutandose en el puerto:' + environmentVars.PORT);
+  new Logger('Main').log('Microservicio ejecutandose en el puerto:' + environmentVars.PORT);
 }
 bootstrap();
