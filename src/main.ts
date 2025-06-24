@@ -4,9 +4,21 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { environmentVars } from './config/envs';
 
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
 async function bootstrap() {
-  // Creamos el servidor
-  const app = await NestFactory.create(AppModule);
+
+  // Creamos el microservicio
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.TCP,
+      options: {
+        host: environmentVars.HOST,
+        port: environmentVars.PORT
+      }
+    }
+  );
 
   // Habilita las validaciones
   app.useGlobalPipes(
@@ -16,9 +28,9 @@ async function bootstrap() {
     })
   );
 
-  // Lanzamos el servidor
-  await app.listen(environmentVars.PORT, environmentVars.HOST);
+  // Lanzamos el microservicio
+  await app.listen();
 
-  console.log('Servidor ejecutandose en el puerto:' + environmentVars.PORT);
+  console.log('Microservicio ejecutandose en el puerto:' + environmentVars.PORT);
 }
 bootstrap();
