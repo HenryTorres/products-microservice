@@ -8,7 +8,7 @@ async function main() {
         transport: Transport.TCP,
         options: {
             host: 'localhost',
-            port: 8080
+            port: 3001
         }
     });
 

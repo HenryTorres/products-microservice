@@ -10,27 +10,27 @@ export class ProductsController {
 
     constructor(private readonly service: ProductsService) { }
 
-    @MessagePattern({ cmd: 'findAll' })
+    @MessagePattern({ cmd: 'products.findAll' })
     findAll() {
         return this.service.findAll();
     }
 
-    @MessagePattern({ cmd: 'findOne' })
+    @MessagePattern({ cmd: 'products.findOne' })
     findOne(@Payload('id', ParseIntPipe) id: number) {
         return this.service.findOne(id);
     }
 
-    @MessagePattern({ cmd: 'create' })
+    @MessagePattern({ cmd: 'products.create' })
     create(@Payload() data: ProductCreateDTO) {
         return this.service.create(data);
     }
 
-    @MessagePattern({ cmd: 'update' })
+    @MessagePattern({ cmd: 'products.update' })
     update(@Payload() data: ProductUpdateDTO) {
         return this.service.update(+data.id, data);
     }
 
-    @MessagePattern({ cmd: 'delete' })
+    @MessagePattern({ cmd: 'products.delete' })
     delete(@Payload('id', ParseIntPipe) id: number) {
         return this.service.delete(id);
     }
